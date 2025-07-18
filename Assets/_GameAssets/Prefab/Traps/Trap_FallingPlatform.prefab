@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4458984610859635028}
   - component: {fileID: 4144420619322462420}
   - component: {fileID: 7504531462896266683}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Trap_FallingPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -6,6 +6,9 @@ using Vector2 = UnityEngine.Vector2;
 
 public class Player : MonoBehaviour
 {
+    private DifficultyType gameDifficulty;
+    private GameManager gameManager;
+
     private Rigidbody2D rb;
     private Animator anim;
     private CapsuleCollider2D cd;
@@ -53,10 +56,12 @@ public class Player : MonoBehaviour
     private bool facingRight = true;
     private int facingDir = 1;
 
-    [Header("VFX")]
+    [Header("Player Visuals")]
+    [SerializeField] private AnimatorOverrideController[] animators; 
     [SerializeField] private GameObject deathVFX;
+    [SerializeField] private int skinId;
 
-    private void Awake() 
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
@@ -64,11 +69,16 @@ public class Player : MonoBehaviour
 
     }
 
-    private void Start() 
+    private void Start()
     {
         defaultGravityScale = rb.gravityScale;
+        gameManager = GameManager.Instance;
+
         RespawnedFinished(false);
+        UpdateGameDifficulty();
+        UpdateSkin();
     }
+
 
     private void Update()
     {
@@ -81,7 +91,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if(isKnocked)
+        if (isKnocked)
             return;
 
         HandleEnemyDetection();
@@ -95,11 +105,52 @@ public class Player : MonoBehaviour
 
     }
 
+    public void Damage()
+    {
+        if (gameDifficulty == DifficultyType.Normal)
+        {
+
+            if (gameManager.FruitsCollected() <= 0)
+            {
+                Die();
+                gameManager.RestartLevel();
+            }
+            else
+                gameManager.RemoveFruit();
+
+            return;
+        }
+
+        if (gameDifficulty == DifficultyType.Hard)
+        {
+            Die();
+            gameManager.RestartLevel();
+        }
+    }
+
+    private void UpdateGameDifficulty()
+    {
+        DifficultyManager difficultyManager = DifficultyManager.Instance;
+
+        if (difficultyManager != null)
+            gameDifficulty = difficultyManager.difficulty;
+    }
+
+    public void UpdateSkin()
+    {
+        SkinManager skinManager = SkinManager.Instance;
+
+        if (skinManager == null)
+            return;
+
+        anim.runtimeAnimatorController = animators[skinManager.choosenSkinId];
+    }
+
     private void HandleEnemyDetection()
     {
         if (rb.linearVelocity.y >= 0)
             return;
-            
+
         Collider2D[] colliders = Physics2D.OverlapCircleAll(enemyCheck.position, enemyCheckRadius, whatIsEnemy);
 
         foreach (var enemy in colliders)

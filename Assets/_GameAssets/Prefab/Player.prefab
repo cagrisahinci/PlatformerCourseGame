@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7808625732274148738}
   - component: {fileID: 93794051810992022}
   - component: {fileID: 8547593214657658153}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -33,6 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2819617229124577046}
+  - {fileID: 2897108587499391254}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7808625732274148738
@@ -61,7 +62,18 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
+  enemyCheck: {fileID: 2897108587499391254}
+  enemyCheckRadius: 0.5
+  whatIsEnemy:
+    serializedVersion: 2
+    m_Bits: 64
+  animators:
+  - {fileID: 22100000, guid: 7668988c3a86ae14082630425cc95ba3, type: 2}
+  - {fileID: 22100000, guid: 64a09f1dca2219848b04a228919920f4, type: 2}
+  - {fileID: 22100000, guid: 5ff8551cdb1c9e14b94e3db0c4c11470, type: 2}
+  - {fileID: 22100000, guid: e46c9cc3a3718b148a82c3d3c79b2ac4, type: 2}
   deathVFX: {fileID: 982834497493537799, guid: 38700c82c8c47b84ba8be0679023a851, type: 3}
+  skinId: 0
 --- !u!50 &93794051810992022
 Rigidbody2D:
   serializedVersion: 5
@@ -126,6 +138,37 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.019782782}
   m_Size: {x: 1.1843913, y: 1.5588968}
   m_Direction: 0
+--- !u!1 &3357283106780508124
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2897108587499391254}
+  m_Layer: 7
+  m_Name: EnemyCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2897108587499391254
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3357283106780508124}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.021, y: -0.627, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6098773294752222125}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3808166421926783885
 GameObject:
   m_ObjectHideFlags: 0
